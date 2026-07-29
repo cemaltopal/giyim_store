@@ -104,30 +104,32 @@ export default function AdminClient() {
 
   return (
     <main className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-xl font-bold text-gray-900">StyleStore</Link>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-500">Admin Paneli</span>
-            <button
-              onClick={() => signOut({ callbackUrl: "/" })}
-              className="text-sm text-red-500 hover:underline"
-            >
-              Çıkış Yap
-            </button>
-          </div>
-        </div>
-      </nav>
+      <nav className="sticky top-0 z-50 shadow-sm" style={{ backgroundColor: "#2E86C1" }}>
+  <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+    <Link href="/" className="text-xl font-bold text-white">StyleStore</Link>
+    <div className="flex items-center gap-4">
+      <span className="text-sm" style={{ color: "#D6EAF8" }}>Admin Paneli</span>
+      <button
+        onClick={() => signOut({ callbackUrl: "/" })}
+        className="text-sm hover:underline"
+        style={{ color: "#FFB3B3" }}
+      >
+        Çıkış Yap
+      </button>
+    </div>
+  </div>
+</nav>
 
       <div className="max-w-6xl mx-auto px-4 py-10">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold text-gray-800">Ürün Yönetimi</h1>
           <button
-            onClick={() => { setShowForm(true); setEditingProduct(null); }}
-            className="bg-gray-900 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-gray-700"
-          >
-            + Yeni Ürün
-          </button>
+  onClick={() => { setShowForm(true); setEditingProduct(null); }}
+  className="px-5 py-2 rounded-lg text-sm font-medium text-white hover:opacity-90 transition"
+  style={{ backgroundColor: "#E63946" }}
+>
+  + Yeni Ürün
+</button>
         </div>
 
         {showForm && (
@@ -162,9 +164,38 @@ export default function AdminClient() {
               <input placeholder="Renkler (Siyah, Beyaz, Kırmızı)" value={form.colors}
                 onChange={e => setForm({ ...form, colors: e.target.value })}
                 className="p-3 border rounded-lg text-sm" />
-              <input placeholder="Fotoğraf URL (opsiyonel)" value={form.images}
-                onChange={e => setForm({ ...form, images: e.target.value })}
-                className="p-3 border rounded-lg text-sm" />
+              <div className="col-span-2">
+  <label className="block text-sm text-gray-600 mb-2">Fotoğraf</label>
+  <div className="flex gap-3 items-center">
+    <input
+      type="file"
+      accept="image/*"
+      onChange={async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const formData = new FormData();
+        formData.append("file", file);
+        const res = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+        const data = await res.json();
+        if (data.url) setForm({ ...form, images: data.url });
+      }}
+      className="flex-1 p-3 border rounded-lg text-sm"
+    />
+    {form.images && (
+      <img
+        src={form.images}
+        alt="Önizleme"
+        className="w-16 h-16 object-cover rounded-lg border"
+      />
+    )}
+  </div>
+  {form.images && (
+    <p className="text-xs text-green-600 mt-1">✓ Fotoğraf yüklendi</p>
+  )}
+</div>
               <label className="flex items-center gap-2 text-sm text-gray-600 col-span-2">
                 <input type="checkbox" checked={form.featured}
                   onChange={e => setForm({ ...form, featured: e.target.checked })} />
@@ -172,13 +203,15 @@ export default function AdminClient() {
               </label>
               <div className="col-span-2 flex gap-3">
                 <button type="submit"
-                  className="bg-gray-900 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-700">
-                  {editingProduct ? "Güncelle" : "Ekle"}
-                </button>
-                <button type="button" onClick={() => setShowForm(false)}
-                  className="px-6 py-2 rounded-lg text-sm border text-gray-600 hover:bg-gray-50">
-                  İptal
-                </button>
+  className="px-6 py-2 rounded-lg text-sm font-medium text-white hover:opacity-90 transition"
+  style={{ backgroundColor: "#2E86C1" }}>
+  {editingProduct ? "Güncelle" : "Ekle"}
+</button>
+<button type="button" onClick={() => setShowForm(false)}
+  className="px-6 py-2 rounded-lg text-sm border hover:opacity-80 transition"
+  style={{ borderColor: "#2E86C1", color: "#2E86C1" }}>
+  İptal
+</button>
               </div>
             </form>
           </div>

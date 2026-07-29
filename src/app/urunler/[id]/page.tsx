@@ -60,19 +60,23 @@ export default function UrunDetayPage() {
     setTimeout(() => setAdded(false), 2000);
   }
 
-  if (loading) return <div className="text-center py-20 text-gray-400">Yükleniyor...</div>;
-  if (!product) return <div className="text-center py-20 text-gray-400">Ürün bulunamadı.</div>;
+  if (loading) return (
+    <div className="text-center py-20" style={{ color: "#2E86C1" }}>Yükleniyor...</div>
+  );
+  if (!product) return (
+    <div className="text-center py-20" style={{ color: "#2E86C1" }}>Ürün bulunamadı.</div>
+  );
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen" style={{ backgroundColor: "#EBF5FB" }}>
       <div className="max-w-5xl mx-auto px-4 py-10">
-        <Link href="/urunler" className="text-sm text-gray-500 hover:underline mb-6 inline-block">
+        <Link href="/urunler" className="text-sm hover:underline mb-6 inline-block" style={{ color: "#2E86C1" }}>
           ← Ürünlere Dön
         </Link>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Fotoğraf */}
-          <div className="bg-gray-100 rounded-xl overflow-hidden aspect-square">
+          <div className="rounded-xl overflow-hidden aspect-square" style={{ backgroundColor: "#AED6F1" }}>
             {product.images[0] ? (
               <img
                 src={product.images[0]}
@@ -80,7 +84,7 @@ export default function UrunDetayPage() {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-gray-400">
+              <div className="w-full h-full flex items-center justify-center" style={{ color: "#2E86C1" }}>
                 Fotoğraf yok
               </div>
             )}
@@ -88,27 +92,28 @@ export default function UrunDetayPage() {
 
           {/* Detaylar */}
           <div>
-            <p className="text-sm text-gray-400 uppercase mb-2">{product.category}</p>
-            <h1 className="text-3xl font-bold text-gray-800 mb-3">{product.name}</h1>
-            <p className="text-2xl font-semibold text-gray-900 mb-6">
+            <p className="text-sm uppercase mb-2" style={{ color: "#5DADE2" }}>{product.category}</p>
+            <h1 className="text-3xl font-bold mb-3" style={{ color: "#1A6090" }}>{product.name}</h1>
+            <p className="text-2xl font-bold mb-6" style={{ color: "#E63946" }}>
               ₺{product.price.toLocaleString("tr-TR")}
             </p>
-            <p className="text-gray-500 mb-6">{product.description}</p>
+            <p className="mb-6" style={{ color: "#2E86C1" }}>{product.description}</p>
 
             {/* Beden Seçimi */}
             {product.sizes.length > 0 && (
               <div className="mb-4">
-                <p className="text-sm font-medium text-gray-700 mb-2">Beden</p>
+                <p className="text-sm font-medium mb-2" style={{ color: "#1A6090" }}>Beden</p>
                 <div className="flex gap-2 flex-wrap">
                   {product.sizes.map((size) => (
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`px-4 py-2 border rounded-lg text-sm font-medium transition ${
-                        selectedSize === size
-                          ? "bg-gray-900 text-white border-gray-900"
-                          : "text-gray-700 hover:border-gray-900"
-                      }`}
+                      className="px-4 py-2 border rounded-lg text-sm font-medium transition"
+                      style={{
+                        backgroundColor: selectedSize === size ? "#2E86C1" : "white",
+                        color: selectedSize === size ? "white" : "#1A6090",
+                        borderColor: "#2E86C1",
+                      }}
                     >
                       {size}
                     </button>
@@ -120,17 +125,18 @@ export default function UrunDetayPage() {
             {/* Renk Seçimi */}
             {product.colors.length > 0 && (
               <div className="mb-6">
-                <p className="text-sm font-medium text-gray-700 mb-2">Renk</p>
+                <p className="text-sm font-medium mb-2" style={{ color: "#1A6090" }}>Renk</p>
                 <div className="flex gap-2 flex-wrap">
                   {product.colors.map((color) => (
                     <button
                       key={color}
                       onClick={() => setSelectedColor(color)}
-                      className={`px-4 py-2 border rounded-lg text-sm font-medium transition ${
-                        selectedColor === color
-                          ? "bg-gray-900 text-white border-gray-900"
-                          : "text-gray-700 hover:border-gray-900"
-                      }`}
+                      className="px-4 py-2 border rounded-lg text-sm font-medium transition"
+                      style={{
+                        backgroundColor: selectedColor === color ? "#2E86C1" : "white",
+                        color: selectedColor === color ? "white" : "#1A6090",
+                        borderColor: "#2E86C1",
+                      }}
                     >
                       {color}
                     </button>
@@ -140,7 +146,7 @@ export default function UrunDetayPage() {
             )}
 
             {/* Stok */}
-            <p className={`text-sm mb-6 ${product.stock > 0 ? "text-green-600" : "text-red-500"}`}>
+            <p className="text-sm mb-6" style={{ color: product.stock > 0 ? "#27AE60" : "#E63946" }}>
               {product.stock > 0 ? `${product.stock} adet stokta` : "Stokta yok"}
             </p>
 
@@ -148,11 +154,8 @@ export default function UrunDetayPage() {
             <button
               onClick={addToCart}
               disabled={product.stock === 0}
-              className={`w-full py-4 rounded-xl font-medium text-lg transition ${
-                added
-                  ? "bg-green-600 text-white"
-                  : "bg-gray-900 text-white hover:bg-gray-700"
-              } disabled:opacity-50 disabled:cursor-not-allowed`}
+              className="w-full py-4 rounded-xl font-medium text-lg transition hover:opacity-90 disabled:opacity-50"
+              style={{ backgroundColor: added ? "#27AE60" : "#E63946", color: "white" }}
             >
               {added ? "✓ Sepete Eklendi!" : "Sepete Ekle"}
             </button>

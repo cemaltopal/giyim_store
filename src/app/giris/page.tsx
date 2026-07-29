@@ -33,9 +33,10 @@ export default function GirisPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      <div className="bg-white rounded-xl shadow-sm p-8 w-full max-w-sm">
-        <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">Giriş Yap</h1>
+    <main className="min-h-screen flex items-center justify-center px-4" style={{ backgroundColor: "#EBF5FB" }}>
+      <div className="rounded-xl shadow-sm p-8 w-full max-w-sm" style={{ backgroundColor: "white" }}>
+        <h1 className="text-2xl font-bold text-center mb-2" style={{ color: "#1A6090" }}>Giriş Yap</h1>
+        <p className="text-center text-sm mb-6" style={{ color: "#5DADE2" }}>StyleStore'a hoş geldin!</p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
@@ -44,7 +45,8 @@ export default function GirisPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="p-3 border rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            className="p-3 border rounded-lg text-sm focus:outline-none focus:ring-2"
+            style={{ borderColor: "#AED6F1", color: "#1A6090" }}
           />
           <input
             type="password"
@@ -52,21 +54,23 @@ export default function GirisPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="p-3 border rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            className="p-3 border rounded-lg text-sm focus:outline-none focus:ring-2"
+            style={{ borderColor: "#AED6F1", color: "#1A6090" }}
           />
-          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+          {error && <p className="text-sm text-center" style={{ color: "#E63946" }}>{error}</p>}
           <button
             type="submit"
             disabled={loading}
-            className="bg-gray-900 text-white py-3 rounded-lg font-medium hover:bg-gray-700 transition disabled:opacity-50"
+            className="py-3 rounded-lg font-medium text-white hover:opacity-90 transition disabled:opacity-50"
+            style={{ backgroundColor: "#2E86C1" }}
           >
             {loading ? "Giriş yapılıyor..." : "Giriş Yap"}
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-4">
+        <p className="text-center text-sm mt-4" style={{ color: "#5DADE2" }}>
           Hesabın yok mu?{" "}
-          <Link href="/kayit" className="text-blue-600 hover:underline">
+          <Link href="/kayit" className="font-medium hover:underline" style={{ color: "#E63946" }}>
             Kayıt Ol
           </Link>
         </p>

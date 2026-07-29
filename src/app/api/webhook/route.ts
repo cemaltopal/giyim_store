@@ -24,12 +24,36 @@ export async function POST(request: Request) {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
     const itemsJson = session.metadata?.items;
+    const userId = session.metadata?.userId;
 
     if (itemsJson) {
       const items = JSON.parse(itemsJson);
+      const total = items.reduce((sum: number, item: any) => sum + item.price * item.quantity, 0);
 
+      // Sipariş oluştur
+      if (userId) {
+        const order = await prisma.order.create({
+          data: {
+            userId,
+            total,
+            status: "paid",
+            stripeId: session.id,
+            items: {
+              create: items.map((item: any) => ({
+                productId: item.id,
+                quantity: item.quantity,
+                price: item.price,
+                size: item.size || null,
+                color: item.color || null,
+              })),
+            },
+          },
+        });
+        console.log("Sipariş oluşturuldu:", order.id);
+      }
+
+      // Stok düşür
       for (const item of items) {
-        console.log("Stok düşürülüyor:", item.id, item.quantity);
         await prisma.product.update({
           where: { id: item.id },
           data: { stock: { decrement: item.quantity } },

@@ -42,9 +42,13 @@ export default function SepetPage() {
 
   if (cart.length === 0) {
     return (
-      <main className="min-h-screen bg-white flex flex-col items-center justify-center gap-4">
-        <p className="text-gray-400 text-lg">Sepetiniz boş.</p>
-        <Link href="/urunler" className="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-700">
+      <main className="min-h-screen flex flex-col items-center justify-center gap-4" style={{ backgroundColor: "#EBF5FB" }}>
+        <p className="text-lg" style={{ color: "#2E86C1" }}>Sepetiniz boş.</p>
+        <Link
+          href="/urunler"
+          className="px-6 py-3 rounded-lg text-white font-medium hover:opacity-90 transition"
+          style={{ backgroundColor: "#2E86C1" }}
+        >
           Alışverişe Başla
         </Link>
       </main>
@@ -52,31 +56,31 @@ export default function SepetPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen" style={{ backgroundColor: "#EBF5FB" }}>
       <div className="max-w-4xl mx-auto px-4 py-10">
-        <h1 className="text-2xl font-bold text-gray-800 mb-8">Sepetim</h1>
+        <h1 className="text-2xl font-bold mb-8" style={{ color: "#1A6090" }}>Sepetim</h1>
 
         <div className="flex flex-col gap-4 mb-8">
           {cart.map((item, index) => (
-            <div key={index} className="flex gap-4 bg-gray-50 rounded-xl p-4 items-center">
-              <div className="w-20 h-20 bg-gray-200 rounded-lg overflow-hidden shrink-0">
+            <div key={index} className="flex gap-4 rounded-xl p-4 items-center shadow-sm" style={{ backgroundColor: "white" }}>
+              <div className="w-20 h-20 rounded-lg overflow-hidden shrink-0" style={{ backgroundColor: "#AED6F1" }}>
                 {item.image ? (
                   <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
+                  <div className="w-full h-full flex items-center justify-center text-xs" style={{ color: "#2E86C1" }}>
                     Foto yok
                   </div>
                 )}
               </div>
 
               <div className="flex-1">
-                <h3 className="font-medium text-gray-800">{item.name}</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="font-medium" style={{ color: "#1A6090" }}>{item.name}</h3>
+                <p className="text-sm" style={{ color: "#5DADE2" }}>
                   {item.size && `Beden: ${item.size}`}
                   {item.size && item.color && " · "}
                   {item.color && `Renk: ${item.color}`}
                 </p>
-                <p className="font-semibold text-gray-900 mt-1">
+                <p className="font-bold mt-1" style={{ color: "#E63946" }}>
                   ₺{(item.price * item.quantity).toLocaleString("tr-TR")}
                 </p>
               </div>
@@ -84,14 +88,16 @@ export default function SepetPage() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => updateQuantity(index, -1)}
-                  className="w-8 h-8 border rounded-lg flex items-center justify-center hover:bg-gray-100"
+                  className="w-8 h-8 border rounded-lg flex items-center justify-center hover:opacity-80 transition"
+                  style={{ borderColor: "#2E86C1", color: "#2E86C1" }}
                 >
                   −
                 </button>
-                <span className="w-6 text-center font-medium">{item.quantity}</span>
+                <span className="w-6 text-center font-medium" style={{ color: "#1A6090" }}>{item.quantity}</span>
                 <button
                   onClick={() => updateQuantity(index, 1)}
-                  className="w-8 h-8 border rounded-lg flex items-center justify-center hover:bg-gray-100"
+                  className="w-8 h-8 border rounded-lg flex items-center justify-center hover:opacity-80 transition"
+                  style={{ borderColor: "#2E86C1", color: "#2E86C1" }}
                 >
                   +
                 </button>
@@ -99,7 +105,8 @@ export default function SepetPage() {
 
               <button
                 onClick={() => removeItem(index)}
-                className="text-red-400 hover:text-red-600 text-sm ml-2"
+                className="text-sm ml-2 hover:opacity-70 transition"
+                style={{ color: "#E63946" }}
               >
                 Sil
               </button>
@@ -108,16 +115,17 @@ export default function SepetPage() {
         </div>
 
         {/* Toplam */}
-        <div className="bg-gray-50 rounded-xl p-6">
+        <div className="rounded-xl p-6 shadow-sm" style={{ backgroundColor: "white" }}>
           <div className="flex justify-between items-center mb-4">
-            <span className="text-gray-600">Toplam</span>
-            <span className="text-2xl font-bold text-gray-900">
+            <span style={{ color: "#1A6090" }}>Toplam</span>
+            <span className="text-2xl font-bold" style={{ color: "#E63946" }}>
               ₺{total.toLocaleString("tr-TR")}
             </span>
           </div>
           <Link
             href="/odeme"
-            className="block w-full bg-gray-900 text-white py-4 rounded-xl font-medium text-center hover:bg-gray-700 transition"
+            className="block w-full py-4 rounded-xl font-medium text-center text-white hover:opacity-90 transition"
+            style={{ backgroundColor: "#E63946" }}
           >
             Ödemeye Geç
           </Link>

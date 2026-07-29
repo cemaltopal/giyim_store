@@ -44,22 +44,22 @@ export default function OdemePage() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen" style={{ backgroundColor: "#EBF5FB" }}>
       <div className="max-w-2xl mx-auto px-4 py-10">
-        <h1 className="text-2xl font-bold text-gray-800 mb-8">Ödeme</h1>
+        <h1 className="text-2xl font-bold mb-8" style={{ color: "#1A6090" }}>Ödeme</h1>
 
-        <div className="bg-gray-50 rounded-xl p-6 mb-6">
-          <h2 className="font-semibold text-gray-800 mb-4">Sipariş Özeti</h2>
+        <div className="rounded-xl p-6 mb-6 shadow-sm" style={{ backgroundColor: "white" }}>
+          <h2 className="font-semibold mb-4" style={{ color: "#1A6090" }}>Sipariş Özeti</h2>
           <div className="flex flex-col gap-3">
             {cart.map((item, index) => (
-              <div key={index} className="flex justify-between text-sm text-gray-600">
+              <div key={index} className="flex justify-between text-sm" style={{ color: "#5DADE2" }}>
                 <span>{item.name} x{item.quantity}</span>
-                <span>₺{(item.price * item.quantity).toLocaleString("tr-TR")}</span>
+                <span style={{ color: "#1A6090" }}>₺{(item.price * item.quantity).toLocaleString("tr-TR")}</span>
               </div>
             ))}
-            <div className="border-t pt-3 flex justify-between font-bold text-gray-800">
-              <span>Toplam</span>
-              <span>₺{total.toLocaleString("tr-TR")}</span>
+            <div className="border-t pt-3 flex justify-between font-bold" style={{ borderColor: "#AED6F1" }}>
+              <span style={{ color: "#1A6090" }}>Toplam</span>
+              <span style={{ color: "#E63946" }}>₺{total.toLocaleString("tr-TR")}</span>
             </div>
           </div>
         </div>
@@ -67,12 +67,13 @@ export default function OdemePage() {
         <button
           onClick={handleCheckout}
           disabled={loading}
-          className="w-full bg-gray-900 text-white py-4 rounded-xl font-medium text-lg hover:bg-gray-700 transition disabled:opacity-50"
+          className="w-full py-4 rounded-xl font-medium text-lg text-white hover:opacity-90 transition disabled:opacity-50"
+          style={{ backgroundColor: "#E63946" }}
         >
           {loading ? "Yönlendiriliyor..." : "Stripe ile Güvenli Öde"}
         </button>
 
-        <p className="text-center text-xs text-gray-400 mt-4">
+        <p className="text-center text-xs mt-4" style={{ color: "#5DADE2" }}>
           Ödemeniz Stripe altyapısıyla güvenli şekilde işlenir.
         </p>
       </div>

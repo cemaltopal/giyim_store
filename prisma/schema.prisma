@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres.pqztrlrxcdjocgutcyxa:Cobandede.01@aws-0-eu-central-1.pooler.supabase.com:5432/postgres?connect_timeout=30"
+  url      = env("DATABASE_URL")
 }
 
 model Account {

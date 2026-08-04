@@ -75,7 +75,7 @@ export default function AdminClient() {
       sizes: form.sizes ? form.sizes.split(",").map((s) => s.trim()) : [],
       colors: form.colors ? form.colors.split(",").map((c) => c.trim()) : [],
       stock: Number(form.stock),
-      images: form.images ? [form.images] : [],
+images: form.images ? [form.images] : (editingProduct?.images || []),
       featured: form.featured,
     };
 

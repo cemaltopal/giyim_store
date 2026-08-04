@@ -173,16 +173,13 @@ images: form.images ? [form.images] : (editingProduct?.images || []),
       onChange={async (e) => {
   const file = e.target.files?.[0];
   if (!file) return;
-  console.log("Dosya seçildi:", file.name);
   const formData = new FormData();
   formData.append("file", file);
   const res = await fetch("/api/upload", {
     method: "POST",
     body: formData,
   });
-  console.log("Upload response:", res.status);
   const data = await res.json();
-  console.log("Upload data:", data);
   if (data.url) setForm({ ...form, images: data.url });
 }}
       className="flex-1 p-3 border rounded-lg text-sm"
